@@ -30,4 +30,8 @@ public class Channel {
         this.name = name;
         this.channelType = channelType;
     }
+
+    public void update(String newName) {
+        this.name = newName;
+    }
 }

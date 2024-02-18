@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.entity.Channel;
 import foxcord.domain.channel.entity.ChannelType;
 import foxcord.domain.channel.repository.ChannelRepository;
@@ -79,6 +80,33 @@ class ChannelServiceTest {
     @DisplayName("존재하지 않은 채널 삭제 시 예외가 발생한다")
     void deleteChannelWithNotExist() {
         assertThatThrownBy(() -> channelService.delete(MAX_VALUE))
+                .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    @DisplayName("채널 이름을 수정한다")
+    void updateChannelName() {
+        //given
+        Channel channel = new Channel("A", ChannelType.TEXT);
+        channelRepository.save(channel);
+
+        ChannelUpdateRequest updateRequest = new ChannelUpdateRequest("B");
+
+        //when
+        channelService.update(channel.getId(), updateRequest);
+
+        //then
+        assertThat(channel.getName()).isEqualTo(updateRequest.newName());
+    }
+
+    @Test
+    @DisplayName("존재하지 않은 채널 수정 시 예외가 발생한다")
+    void updateChannelWithNotExist() {
+        //given
+        ChannelUpdateRequest updateRequest = new ChannelUpdateRequest("new");
+
+        //when, then
+        assertThatThrownBy(() -> channelService.update(MAX_VALUE, updateRequest))
                 .isInstanceOf(NoSuchElementException.class);
     }
 }

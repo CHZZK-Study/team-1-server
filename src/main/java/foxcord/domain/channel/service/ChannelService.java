@@ -1,6 +1,7 @@
 package foxcord.domain.channel.service;
 
 import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.entity.Channel;
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface ChannelService {
     List<Channel> findAll();
 
     void delete(Long channelId);
+
+    Channel update(Long channelId, ChannelUpdateRequest updateRequest);
 }

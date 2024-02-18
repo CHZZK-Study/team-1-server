@@ -1,6 +1,7 @@
 package foxcord.domain.channel.service;
 
 import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.entity.Channel;
 import foxcord.domain.channel.repository.ChannelRepository;
 import java.util.List;
@@ -31,8 +32,20 @@ public class ChannelServiceImpl implements ChannelService {
     @Override
     @Transactional
     public void delete(Long channelId) {
-        Channel findChannel = channelRepository.findById(channelId)
-                .orElseThrow(() -> new NoSuchElementException("채널이 존재하지 않습니다. [ID] " + channelId));
+        Channel findChannel = findOne(channelId);
         channelRepository.delete(findChannel);
+    }
+
+    @Override
+    @Transactional
+    public Channel update(Long channelId, ChannelUpdateRequest updateRequest) {
+        Channel channel = findOne(channelId);
+        channel.update(updateRequest.newName());
+        return channel;
+    }
+
+    private Channel findOne(Long channelId) {
+        return channelRepository.findById(channelId)
+                .orElseThrow(() -> new NoSuchElementException("채널이 존재하지 않습니다. [ID] " + channelId));
     }
 }

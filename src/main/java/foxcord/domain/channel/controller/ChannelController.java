@@ -1,6 +1,7 @@
 package foxcord.domain.channel.controller;
 
 import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.dto.response.ChannelResponse;
 import foxcord.domain.channel.entity.Channel;
 import foxcord.domain.channel.service.ChannelService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,5 +46,13 @@ public class ChannelController {
     public ResponseEntity<Void> delete(@PathVariable("channelId") Long channelId) {
         channelService.delete(channelId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{channelId}")
+    public ResponseEntity<ChannelResponse> update(@PathVariable("channelId") Long channelId,
+            @RequestBody ChannelUpdateRequest updateRequest) {
+        Channel updatedChannel = channelService.update(channelId, updateRequest);
+        ChannelResponse channelResponse = ChannelResponse.toDto(updatedChannel);
+        return ResponseEntity.ok(channelResponse);
     }
 }
