@@ -9,4 +9,6 @@ public interface ChannelService {
     Long create(ChannelSaveRequest saveRequest);
 
     List<Channel> findAll();
+
+    void delete(Long channelId);
 }

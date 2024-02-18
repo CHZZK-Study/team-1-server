@@ -1,12 +1,15 @@
 package foxcord.domain.channel.service;
 
+import static java.lang.Long.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import foxcord.domain.channel.dto.request.ChannelSaveRequest;
 import foxcord.domain.channel.entity.Channel;
 import foxcord.domain.channel.entity.ChannelType;
 import foxcord.domain.channel.repository.ChannelRepository;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,5 +58,27 @@ class ChannelServiceTest {
         //then
         assertThat(channels).hasSize(2)
                 .containsExactly(channelA, channelB);
+    }
+
+    @Test
+    @DisplayName("채널을 삭제한다")
+    void deleteChannel() {
+        //given
+        Channel channel = new Channel("A", ChannelType.TEXT);
+        channelRepository.save(channel);
+
+        //when
+        channelService.delete(channel.getId());
+
+        //then
+        List<Channel> channels = channelRepository.findAll();
+        assertThat(channels).isEmpty();
+    }
+
+    @Test
+    @DisplayName("존재하지 않은 채널 삭제 시 예외가 발생한다")
+    void deleteChannelWithNotExist() {
+        assertThatThrownBy(() -> channelService.delete(MAX_VALUE))
+                .isInstanceOf(NoSuchElementException.class);
     }
 }
