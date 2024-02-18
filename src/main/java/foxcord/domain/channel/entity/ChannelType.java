@@ -1,7 +1,9 @@
 package foxcord.domain.channel.entity;
 
 import java.util.Arrays;
+import lombok.Getter;
 
+@Getter
 public enum ChannelType {
     TEXT("채팅"),
     VOICE("음성");
