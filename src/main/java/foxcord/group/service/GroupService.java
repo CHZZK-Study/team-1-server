@@ -11,4 +11,6 @@ public interface GroupService {
     Long createGroup(GroupCreateRequest groupCreateRequest);
 
     Group updateGroup(Long groupId, GroupUpdateRequest groupUpdateRequest);
+
+    void removeGroup(Long groupId);
 }

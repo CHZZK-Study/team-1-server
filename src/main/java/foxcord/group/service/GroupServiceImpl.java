@@ -32,4 +32,10 @@ public class GroupServiceImpl implements GroupService {
         group.update(groupUpdateRequest.groupName());
         return group;
     }
+
+    @Override
+    @Transactional
+    public void removeGroup(Long groupId) {
+        groupRepository.deleteById(groupId);
+    }
 }
