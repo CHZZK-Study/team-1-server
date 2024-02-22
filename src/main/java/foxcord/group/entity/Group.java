@@ -27,4 +27,8 @@ public class Group {
     public Group(String groupName) {
         this.name = groupName;
     }
+
+    public void update(String groupName) {
+        this.name = groupName;
+    }
 }
