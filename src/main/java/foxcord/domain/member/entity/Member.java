@@ -21,13 +21,12 @@ public class Member {
 
     @Column(nullable = false)
     private String email;
+
     @Column(nullable = false)
 
     private String password;
     private String nickname;
-
-    private String profile_img;
-
+    private String profileImg;
     private String introduce;
 
     @Column(nullable = false)
@@ -35,12 +34,6 @@ public class Member {
     private MemberStatusType status = MemberStatusType.FALSE;
 
     private LocalDateTime createdDate = LocalDateTime.now();
-
-    private Member(String email, String password, String nickname) {
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-    }
 
 
     private Member(String email, String password) {
@@ -50,9 +43,10 @@ public class Member {
 
     }
 
-    private String makeRandomNickname() {
-        UUID nickname = UUID.randomUUID();
-        return nickname.toString();
+    private Member(String email, String password, String nickname) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
     }
 
     public static Member from(String email, String password, String nickname) {
@@ -63,5 +57,22 @@ public class Member {
             return new Member(email, password, nickname);
         }
     }
+
+    public void updateMemberInfo(String profileImg, String password, String nickname, String introduce) {
+        this.profileImg = profileImg;
+        this.password = password;
+        this.nickname = nickname;
+        this.introduce = introduce;
+    }
+
+    public void updateMemberPassword(String oldPassword, String newPassword) {
+        this.password = newPassword;
+    }
+
+    private String makeRandomNickname() {
+        UUID nickname = UUID.randomUUID();
+        return nickname.toString();
+    }
+
 
 }
