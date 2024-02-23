@@ -28,10 +28,6 @@ public class FoxcordSignUpServiceTest {
         foxcordSignUpService = new FoxcordSignUpService(memberRepository);
     }
 
-//    @AfterEach
-//    void clearAll() {
-//        memberRepository.deleteAll();
-//    }
 
     @Test
     @DisplayName("닉네임 없이 회원을 생성한다")
@@ -70,7 +66,6 @@ public class FoxcordSignUpServiceTest {
         //then
         Member member = memberRepository.findById(savedId).get();
         assertThat(member.getId()).isEqualTo(savedId);
-        log.info(member.getNickname());
 
         assertThat(member.getNickname()).isEqualTo(signUpRequest.nickname());
 

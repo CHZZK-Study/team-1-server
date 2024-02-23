@@ -23,16 +23,15 @@ public class FoxcordSignUpService implements SignUpService {
     public Long signup(SignUpRequest signUpRequest) {
         Optional<Member> member = memberRepository.findByEmail(signUpRequest.email());
         if (member.isEmpty()) {
-            log.info("email:{}", signUpRequest.email());
-            log.info("password:{}", signUpRequest.password());
-            log.info("nickname:{}", signUpRequest.nickname());
-
             Member savedMember = memberRepository.save(
                     Member.from(signUpRequest.email(), signUpRequest.password(),
                             signUpRequest.nickname()));
+
             return savedMember.getId();
         } else {
             throw new IllegalArgumentException("이미 존재하는 이메일 입니다");
         }
     }
+
+
 }
