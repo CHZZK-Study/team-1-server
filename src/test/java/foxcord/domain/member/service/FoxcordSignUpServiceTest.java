@@ -33,9 +33,10 @@ public class FoxcordSignUpServiceTest {
     void signup_with_no_nickname() {
         //given
         SignUpRequest signUpRequest = new SignUpRequest("gsafe12@gmail.com", "1234", null);
-        //when
 
+        //when
         Long savedId = foxcordSignUpService.signup(signUpRequest);
+
         //then
         Member member = memberRepository.findById(savedId).get();
         assertThat(member.getId()).isEqualTo(savedId);
@@ -48,7 +49,9 @@ public class FoxcordSignUpServiceTest {
     void checkduplicateEmail() {
         //given
         SignUpRequest signUpRequest = new SignUpRequest("gsafe12@gmail.com", "1234", null);
+
         //when
+
         //then
         assertThatThrownBy(() -> foxcordSignUpService.signup(signUpRequest)).isInstanceOf(
                 IllegalArgumentException.class);
@@ -60,6 +63,7 @@ public class FoxcordSignUpServiceTest {
     void signup_with_nickname() {
         //given
         SignUpRequest signUpRequest = new SignUpRequest("gsafe123@gmail.com", "1234", "lee");
+
         //when
         Long savedId = foxcordSignUpService.signup(signUpRequest);
         Member member = memberRepository.findById(savedId).get();

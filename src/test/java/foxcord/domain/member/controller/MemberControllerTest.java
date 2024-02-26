@@ -30,10 +30,13 @@ public class MemberControllerTest {
 
     @Autowired
     MemberRepository memberRepository;
+
     @Autowired
     MemberService memberService;
+
     @Autowired
     ObjectMapper objectMapper;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -72,14 +75,13 @@ public class MemberControllerTest {
     @Transactional
     @DisplayName("비밀번호 변경 확인")
     void checkUpdatedPassword() throws Exception {
-
         //given
         Member member = Member.from("gsafe1213", "1234", "lee");
         memberRepository.save(member);
-
         MemberUpdatePasswordRequest memberUpdatePasswordRequest = new MemberUpdatePasswordRequest(
                 "1234", "new1234");
         String content = objectMapper.writeValueAsString(memberUpdatePasswordRequest);
+
         //when
         mockMvc.perform(patch("/member/info/password")
                         .cookie(new Cookie("JWT", "1"))
@@ -87,6 +89,7 @@ public class MemberControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
+        //then
         Assertions.assertThat(member.getPassword())
                 .isEqualTo(memberUpdatePasswordRequest.newPassword());
     }
