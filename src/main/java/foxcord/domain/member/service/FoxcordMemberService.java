@@ -38,8 +38,7 @@ public class FoxcordMemberService implements MemberService {
     public void updatePassword(Cookie cookie,
             MemberUpdatePasswordRequest memberUpdatePasswordRequest) {
         Member member = getMemberByCookie(cookie);
-        member.updateMemberPassword(memberUpdatePasswordRequest.oldPassword(),
-                memberUpdatePasswordRequest.newPassword());
+        member.updateMemberPassword(memberUpdatePasswordRequest.newPassword());
     }
 
     private Member getMemberByCookie(Cookie cookie) {

@@ -71,7 +71,7 @@ public class Member {
         this.introduce = introduce;
     }
 
-    public void updateMemberPassword(String oldPassword, String newPassword) {
+    public void updateMemberPassword(String newPassword) {
         this.password = newPassword;
     }
 
