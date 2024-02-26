@@ -4,4 +4,5 @@ public record MemberUpdatePasswordRequest(
         String oldPassword,
         String newPassword
 ) {
+
 }

@@ -1,5 +1,8 @@
 package foxcord.domain.member.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import foxcord.domain.member.dto.request.MemberUpdatePasswordRequest;
 import foxcord.domain.member.dto.request.MemberUpdateRequest;
@@ -19,9 +22,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
 @SpringBootTest
@@ -49,7 +49,8 @@ public class MemberControllerTest {
         //given
         Member member = Member.from("gsafe1213", "1234", "lee");
         memberRepository.save(member);
-        MemberUpdateRequest memberUpdateRequest = new MemberUpdateRequest("myprofile.jpeg", "change1234!", "abcscsa", "안녕하세요");
+        MemberUpdateRequest memberUpdateRequest = new MemberUpdateRequest("myprofile.jpeg",
+                "change1234!", "abcscsa", "안녕하세요");
         String content = objectMapper.writeValueAsString(memberUpdateRequest);
 
         //when
@@ -75,7 +76,9 @@ public class MemberControllerTest {
         //given
         Member member = Member.from("gsafe1213", "1234", "lee");
         memberRepository.save(member);
-        MemberUpdatePasswordRequest memberUpdatePasswordRequest = new MemberUpdatePasswordRequest("1234", "new1234");
+
+        MemberUpdatePasswordRequest memberUpdatePasswordRequest = new MemberUpdatePasswordRequest(
+                "1234", "new1234");
         String content = objectMapper.writeValueAsString(memberUpdatePasswordRequest);
         //when
         mockMvc.perform(patch("/member/info/password")
@@ -84,7 +87,7 @@ public class MemberControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-
-        Assertions.assertThat(member.getPassword()).isEqualTo(memberUpdatePasswordRequest.newPassword());
+        Assertions.assertThat(member.getPassword())
+                .isEqualTo(memberUpdatePasswordRequest.newPassword());
     }
 }

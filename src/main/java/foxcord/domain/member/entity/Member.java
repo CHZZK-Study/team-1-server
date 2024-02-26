@@ -1,12 +1,19 @@
 package foxcord.domain.member.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -15,15 +22,14 @@ import java.util.UUID;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
-
     private String password;
     private String nickname;
     private String profileImg;
@@ -31,10 +37,9 @@ public class Member {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private MemberStatusType status = MemberStatusType.FALSE;
+    private final MemberStatusType status = MemberStatusType.FALSE;
 
-    private LocalDateTime createdDate = LocalDateTime.now();
-
+    private final LocalDateTime createdDate = LocalDateTime.now();
 
     private Member(String email, String password) {
         this.email = email;
@@ -58,7 +63,8 @@ public class Member {
         }
     }
 
-    public void updateMemberInfo(String profileImg, String password, String nickname, String introduce) {
+    public void updateMemberInfo(String profileImg, String password, String nickname,
+            String introduce) {
         this.profileImg = profileImg;
         this.password = password;
         this.nickname = nickname;
@@ -73,6 +79,5 @@ public class Member {
         UUID nickname = UUID.randomUUID();
         return nickname.toString();
     }
-
 
 }
