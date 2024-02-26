@@ -8,8 +8,8 @@ import foxcord.domain.member.dto.request.MemberUpdatePasswordRequest;
 import foxcord.domain.member.dto.request.MemberUpdateRequest;
 import foxcord.domain.member.entity.Member;
 import foxcord.domain.member.repository.MemberRepository;
-import foxcord.domain.member.service.FoxcordMemberService;
 import foxcord.domain.member.service.MemberService;
+import foxcord.domain.member.service.MemberServiceImpl;
 import jakarta.servlet.http.Cookie;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
@@ -42,7 +42,7 @@ public class MemberControllerTest {
 
     @BeforeEach
     void init() {
-        memberService = new FoxcordMemberService(memberRepository);
+        memberService = new MemberServiceImpl(memberRepository);
     }
 
     @Test

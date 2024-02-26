@@ -18,14 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class FoxcordSignUpServiceTest {
 
     @Autowired
-    FoxcordSignUpService foxcordSignUpService;
+    SignUpService signUpService;
 
     @Autowired
     MemberRepository memberRepository;
 
     @BeforeEach
     void init() {
-        foxcordSignUpService = new FoxcordSignUpService(memberRepository);
+        signUpService = new SignUpServiceImpl(memberRepository);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class FoxcordSignUpServiceTest {
         SignUpRequest signUpRequest = new SignUpRequest("gsafe12@gmail.com", "1234", null);
 
         //when
-        Long savedId = foxcordSignUpService.signup(signUpRequest);
+        Long savedId = signUpService.signup(signUpRequest);
 
         //then
         Member member = memberRepository.findById(savedId).get();
@@ -53,7 +53,7 @@ public class FoxcordSignUpServiceTest {
         //when
 
         //then
-        assertThatThrownBy(() -> foxcordSignUpService.signup(signUpRequest)).isInstanceOf(
+        assertThatThrownBy(() -> signUpService.signup(signUpRequest)).isInstanceOf(
                 IllegalArgumentException.class);
 
     }
@@ -65,7 +65,7 @@ public class FoxcordSignUpServiceTest {
         SignUpRequest signUpRequest = new SignUpRequest("gsafe123@gmail.com", "1234", "lee");
 
         //when
-        Long savedId = foxcordSignUpService.signup(signUpRequest);
+        Long savedId = signUpService.signup(signUpRequest);
         Member member = memberRepository.findById(savedId).get();
 
         //then

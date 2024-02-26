@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class FoxcordSignUpService implements SignUpService {
+public class SignUpServiceImpl implements SignUpService {
 
     private final MemberRepository memberRepository;
 
