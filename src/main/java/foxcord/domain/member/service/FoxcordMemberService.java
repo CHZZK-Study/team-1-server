@@ -16,30 +16,35 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class FoxcordMemberService implements MemberService {
+
     private final MemberRepository memberRepository;
 
     @Override
     public MemberResponse findMemberInfo(Cookie cookie) {
         Member member = getMemberByCookie(cookie);
-        return MemberResponse.from(member);
+        return MemberResponse.toDto(member);
     }
 
     @Override
     @Transactional
     public void updateMemberInfo(Cookie cookie, MemberUpdateRequest memberUpdateRequest) {
         Member member = getMemberByCookie(cookie);
-        member.updateMemberInfo(memberUpdateRequest.profileImg(), memberUpdateRequest.password(), memberUpdateRequest.nickname(), memberUpdateRequest.introduce());
+        member.updateMemberInfo(memberUpdateRequest.profileImg(), memberUpdateRequest.password(),
+                memberUpdateRequest.nickname(), memberUpdateRequest.introduce());
     }
 
     @Override
     @Transactional
-    public void updatePassword(Cookie cookie, MemberUpdatePasswordRequest memberUpdatePasswordRequest) {
+    public void updatePassword(Cookie cookie,
+            MemberUpdatePasswordRequest memberUpdatePasswordRequest) {
         Member member = getMemberByCookie(cookie);
-        member.updateMemberPassword(memberUpdatePasswordRequest.oldPassword(), memberUpdatePasswordRequest.newPassword());
+        member.updateMemberPassword(memberUpdatePasswordRequest.oldPassword(),
+                memberUpdatePasswordRequest.newPassword());
     }
 
     private Member getMemberByCookie(Cookie cookie) {
         Long memberId = Long.parseLong(cookie.getValue());
-        return memberRepository.findById(memberId).orElseThrow(() -> new IllegalStateException("쿠키가 올바르지 않습니다"));
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalStateException("쿠키가 올바르지 않습니다"));
     }
 }

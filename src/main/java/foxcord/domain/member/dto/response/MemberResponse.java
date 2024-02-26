@@ -9,7 +9,9 @@ public record MemberResponse(
         String email
 
 ) {
-    public static MemberResponse from(Member member) {
-        return new MemberResponse(member.getProfileImg(), member.getNickname(), member.getIntroduce(), member.getEmail());
+
+    public static MemberResponse toDto(Member member) {
+        return new MemberResponse(member.getProfileImg(), member.getNickname(),
+                member.getIntroduce(), member.getEmail());
     }
 }
