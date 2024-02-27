@@ -1,6 +1,6 @@
 package foxcord.domain.channel.service;
 
-import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelCreateRequest;
 import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.entity.Channel;
 import foxcord.domain.channel.repository.ChannelRepository;
@@ -19,8 +19,8 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     @Transactional
-    public Long create(ChannelSaveRequest saveRequest) {
-        Channel savedChannel = channelRepository.save(saveRequest.toEntity());
+    public Long create(ChannelCreateRequest createRequest) {
+        Channel savedChannel = channelRepository.save(createRequest.toEntity());
         return savedChannel.getId();
     }
 

@@ -1,13 +1,13 @@
 package foxcord.domain.channel.service;
 
-import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelCreateRequest;
 import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.entity.Channel;
 import java.util.List;
 
 public interface ChannelService {
 
-    Long create(ChannelSaveRequest saveRequest);
+    Long create(ChannelCreateRequest createRequest);
 
     List<Channel> findAll();
 

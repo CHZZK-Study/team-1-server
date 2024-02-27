@@ -1,6 +1,6 @@
 package foxcord.domain.channel.controller;
 
-import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelCreateRequest;
 import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.dto.response.ChannelResponse;
 import foxcord.domain.channel.entity.Channel;
@@ -26,8 +26,8 @@ public class ChannelController {
     private final ChannelService channelService;
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody ChannelSaveRequest saveRequest) {
-        Long channelId = channelService.create(saveRequest);
+    public ResponseEntity<Void> create(@RequestBody ChannelCreateRequest createRequest) {
+        Long channelId = channelService.create(createRequest);
         return ResponseEntity.created(URI.create("/channel/" + channelId)).build();
     }
 

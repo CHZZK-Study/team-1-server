@@ -4,7 +4,7 @@ import static java.lang.Long.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import foxcord.domain.channel.dto.request.ChannelSaveRequest;
+import foxcord.domain.channel.dto.request.ChannelCreateRequest;
 import foxcord.domain.channel.dto.request.ChannelUpdateRequest;
 import foxcord.domain.channel.entity.Channel;
 import foxcord.domain.channel.entity.ChannelType;
@@ -32,15 +32,15 @@ class ChannelServiceTest {
     @DisplayName("채널을 생성한다")
     void createChannel() {
         //given
-        ChannelSaveRequest saveRequest = new ChannelSaveRequest("A", "채팅");
+        ChannelCreateRequest createRequest = new ChannelCreateRequest("A", "채팅");
 
         //when
-        Long savedId = channelService.create(saveRequest);
+        Long savedId = channelService.create(createRequest);
 
         //then
         Optional<Channel> result = channelRepository.findById(savedId);
         assertThat(result).isPresent();
-        assertThat(result.get().getName()).isEqualTo(saveRequest.name());
+        assertThat(result.get().getName()).isEqualTo(createRequest.name());
         assertThat(result.get().getChannelType()).isEqualTo(ChannelType.TEXT);
     }
 
