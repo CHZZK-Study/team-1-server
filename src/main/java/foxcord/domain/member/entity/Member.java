@@ -7,8 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -18,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(uniqueConstraints = {@UniqueConstraint(name = "email", columnNames = {"EMAIL"})})
 public class Member {
 
     @Id
@@ -31,6 +28,8 @@ public class Member {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(unique = true)
     private String nickname;
     private String profileImg;
     private String introduce;
