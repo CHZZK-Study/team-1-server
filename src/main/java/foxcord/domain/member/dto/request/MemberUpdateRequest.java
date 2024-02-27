@@ -5,7 +5,6 @@ public record MemberUpdateRequest(
         String password,
         String nickname,
         String introduce
-
 ) {
 
 }

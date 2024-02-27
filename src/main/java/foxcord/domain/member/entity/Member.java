@@ -31,7 +31,9 @@ public class Member {
 
     @Column(unique = true)
     private String nickname;
+
     private String profileImg;
+
     private String introduce;
 
     @Column(nullable = false)
@@ -44,7 +46,6 @@ public class Member {
         this.email = email;
         this.password = password;
         this.nickname = makeRandomNickname();
-
     }
 
     private Member(String email, String password, String nickname) {
@@ -78,5 +79,4 @@ public class Member {
         UUID nickname = UUID.randomUUID();
         return nickname.toString();
     }
-
 }

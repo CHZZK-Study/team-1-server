@@ -20,5 +20,4 @@ public class SignUpController {
         Long memberId = signUpService.signup(signUpRequest);
         return ResponseEntity.created(URI.create("/signup/" + memberId)).build();
     }
-
 }

@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MemberControllerTest {
+class MemberControllerTest {
 
     @Autowired
     MemberRepository memberRepository;
@@ -52,6 +52,7 @@ public class MemberControllerTest {
         //given
         Member member = Member.from("gsafe1213", "1234", "lee");
         memberRepository.save(member);
+
         MemberUpdateRequest memberUpdateRequest = new MemberUpdateRequest("myprofile.jpeg",
                 "change1234!", "abcscsa", "안녕하세요");
         String content = objectMapper.writeValueAsString(memberUpdateRequest);
@@ -68,7 +69,6 @@ public class MemberControllerTest {
         Assertions.assertThat(member.getPassword()).isEqualTo(memberUpdateRequest.password());
         Assertions.assertThat(member.getNickname()).isEqualTo(memberUpdateRequest.nickname());
         Assertions.assertThat(member.getIntroduce()).isEqualTo(memberUpdateRequest.introduce());
-
     }
 
     @Test
@@ -78,6 +78,7 @@ public class MemberControllerTest {
         //given
         Member member = Member.from("gsafe1213", "1234", "lee");
         memberRepository.save(member);
+
         MemberUpdatePasswordRequest memberUpdatePasswordRequest = new MemberUpdatePasswordRequest(
                 "1234", "new1234");
         String content = objectMapper.writeValueAsString(memberUpdatePasswordRequest);

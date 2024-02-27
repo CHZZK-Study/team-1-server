@@ -12,5 +12,4 @@ public interface MemberService {
     MemberResponse findMemberInfo(Cookie cookie);
 
     void updatePassword(Cookie cookie, MemberUpdatePasswordRequest memberUpdatePasswordRequest);
-
 }

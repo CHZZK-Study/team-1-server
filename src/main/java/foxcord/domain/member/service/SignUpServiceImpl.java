@@ -22,12 +22,11 @@ public class SignUpServiceImpl implements SignUpService {
         if (memberRepository.findByEmail(signUpRequest.email()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 이메일 입니다.");
         }
+
         Member savedMember = memberRepository.save(
                 Member.from(signUpRequest.email(), signUpRequest.password(),
                         signUpRequest.nickname()));
 
         return savedMember.getId();
-
     }
-
 }

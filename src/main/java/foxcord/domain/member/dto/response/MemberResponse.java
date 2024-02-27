@@ -7,7 +7,6 @@ public record MemberResponse(
         String nickname,
         String introduce,
         String email
-
 ) {
 
     public static MemberResponse toDto(Member member) {

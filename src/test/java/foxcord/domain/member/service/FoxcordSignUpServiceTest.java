@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-public class FoxcordSignUpServiceTest {
+class FoxcordSignUpServiceTest {
 
     @Autowired
     SignUpService signUpService;
@@ -41,25 +41,21 @@ public class FoxcordSignUpServiceTest {
         Member member = memberRepository.findById(savedId).get();
         assertThat(member.getId()).isEqualTo(savedId);
         assertThat(member.getEmail()).isNotNull();
-
     }
 
     @Test
-    @DisplayName("이메일 중복을 체크 한다.")
+    @DisplayName("이메일 중복을 체크한다.")
     void checkduplicateEmail() {
         //given
         SignUpRequest signUpRequest = new SignUpRequest("gsafe12@gmail.com", "1234", null);
 
-        //when
-
-        //then
-        assertThatThrownBy(() -> signUpService.signup(signUpRequest)).isInstanceOf(
-                IllegalArgumentException.class);
-
+        //when,then
+        assertThatThrownBy(() -> signUpService.signup(signUpRequest))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    @DisplayName("닉네임 포함해 회원을 생성 한다")
+    @DisplayName("닉네임 포함해 회원을 생성한다")
     void signup_with_nickname() {
         //given
         SignUpRequest signUpRequest = new SignUpRequest("gsafe123@gmail.com", "1234", "lee");
@@ -71,6 +67,5 @@ public class FoxcordSignUpServiceTest {
         //then
         assertThat(member.getId()).isEqualTo(savedId);
         assertThat(member.getNickname()).isEqualTo(signUpRequest.nickname());
-
     }
 }
