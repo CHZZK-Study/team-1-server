@@ -1,10 +1,10 @@
 package foxcord.group.dto.request;
 
-import foxcord.group.entity.Group;
+import foxcord.group.entity.Groups;
 
 public record GroupCreateRequest(String groupName) {
 
-    public Group toEntity() {
-        return new Group(groupName);
+    public Groups toEntity() {
+        return new Groups(groupName);
     }
 }

@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "\"group\"")
-public class Group {
+public class Groups {
 
     @Id
     @Column(name = "group_id")
@@ -24,7 +22,7 @@ public class Group {
     @Column(nullable = false, length = 24)
     private String name;
 
-    public Group(String groupName) {
+    public Groups(String groupName) {
         this.name = groupName;
     }
 

@@ -3,7 +3,7 @@ package foxcord.domain.group.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import foxcord.group.dto.request.GroupCreateRequest;
-import foxcord.group.entity.Group;
+import foxcord.group.entity.Groups;
 import foxcord.group.repository.GroupRepository;
 import foxcord.group.service.GroupService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @SpringBootTest
-public class GroupServiceTest {
+public class GroupsServiceTest {
 
     @Autowired
     private GroupService groupService;
@@ -31,10 +31,10 @@ public class GroupServiceTest {
         Long groupId = groupService.createGroup(groupCreateRequest);
 
         // when
-        groupRepository.deleteById(groupId);
+        groupService.removeGroup(groupId);
 
         // then
-        List<Group> groups = groupRepository.findAll();
+        List<Groups> groups = groupRepository.findAll();
         assertThat(groups.size()).isEqualTo(0);
     }
 }

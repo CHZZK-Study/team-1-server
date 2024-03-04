@@ -3,7 +3,7 @@ package foxcord.group.controller;
 import foxcord.group.dto.request.GroupCreateRequest;
 import foxcord.group.dto.request.GroupUpdateRequest;
 import foxcord.group.dto.response.GroupResponse;
-import foxcord.group.entity.Group;
+import foxcord.group.entity.Groups;
 import foxcord.group.service.GroupService;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +32,8 @@ public class GroupController {
     @PatchMapping("/{groupId}")
     public ResponseEntity<GroupResponse> updateGroup(@PathVariable("groupId") Long groupId,
             @RequestBody GroupUpdateRequest groupUpdateRequest) {
-        Group updatedGroup = groupService.updateGroup(groupId, groupUpdateRequest);
-        return ResponseEntity.ok().body(GroupResponse.toDto(updatedGroup));
+        Groups updatedGroups = groupService.updateGroup(groupId, groupUpdateRequest);
+        return ResponseEntity.ok().body(GroupResponse.toDto(updatedGroups));
     }
 
     @DeleteMapping("/{groupId}")

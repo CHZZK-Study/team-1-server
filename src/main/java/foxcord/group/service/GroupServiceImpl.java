@@ -2,7 +2,7 @@ package foxcord.group.service;
 
 import foxcord.group.dto.request.GroupCreateRequest;
 import foxcord.group.dto.request.GroupUpdateRequest;
-import foxcord.group.entity.Group;
+import foxcord.group.entity.Groups;
 import foxcord.group.repository.GroupRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +19,18 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public Long createGroup(GroupCreateRequest groupCreateRequest) {
-        Group group = groupCreateRequest.toEntity();
-        Group savedGroup = groupRepository.save(group);
-        return savedGroup.getId();
+        Groups groups = groupCreateRequest.toEntity();
+        Groups savedGroups = groupRepository.save(groups);
+        return savedGroups.getId();
     }
 
     @Override
     @Transactional
-    public Group updateGroup(Long groupId, GroupUpdateRequest groupUpdateRequest) {
-        Group group = groupRepository.findById(groupId)
+    public Groups updateGroup(Long groupId, GroupUpdateRequest groupUpdateRequest) {
+        Groups groups = groupRepository.findById(groupId)
                 .orElseThrow(() -> new NoSuchElementException("그룹 아이디에 해당하는 그룹이 존재하지 않습니다."));
-        group.update(groupUpdateRequest.groupName());
-        return group;
+        groups.update(groupUpdateRequest.groupName());
+        return groups;
     }
 
     @Override
